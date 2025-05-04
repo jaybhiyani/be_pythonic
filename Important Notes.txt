@@ -1,0 +1,40 @@
+https://arjan.codes/diagnosis
+
+
+1.  How python handles multiple inheritance
+Python handles multiple inheritance through a mechanism called the Method Resolution Order (MRO). When a class inherits from multiple parent classes, the MRO defines the order in which methods and attributes are searched for in the class hierarchy. Python uses the C3 linearization algorithm to determine the MRO, ensuring a consistent and predictable search order.
+When a method is called on an instance of a class with multiple inheritance, Python follows the MRO to find the method. It starts by looking in the class of the instance itself, then in its parent classes according to the MRO. If the method is found in one of the parent classes, it is executed. If the method is not found in any of the parent classes, an AttributeError is raised.
+Multiple inheritance can lead to complex class hierarchies and potential conflicts if multiple parent classes have methods or attributes with the same name. The MRO helps to resolve these conflicts by defining a clear search order. However, it is important to design class hierarchies carefully to avoid ambiguity and ensure that the behavior of the classes is well-defined.
+
+2. SOLID Principles
+
+| Benefit             | Explanation                                              |
+| ------------------- | -------------------------------------------------------- |
+| 💡 Type clarity     | SRP ensures clear, purpose-driven types                  |
+| 🔄 Flexibility      | OCP/DIP allow replacing or extending types with new ones |
+| 🧪 Testability      | LSP/DIP make mocks/stubs interchangeable for testing     |
+| 🧼 Minimal coupling | ISP keeps passed types clean and minimal                 |
+
+3. LSP and ISP
+| Principle | Focus             | Key Rule                                                    | Shared Benefit                                                  |
+| --------- | ----------------- | ----------------------------------------------------------- | --------------------------------------------------------------- |
+| LSP       | Subclass behavior | Subclasses must be substitutable for base classes           | Prevents unexpected behavior and promotes safe polymorphism     |
+| ISP       | Interface design  | Clients should not be forced to depend on unused interfaces | Prevents bloated dependencies and makes code easier to maintain |
+
+| Principle         | Enforced On | Prevents                           | Key Phrase                              |
+| ----------------- | ----------- | ---------------------------------- | --------------------------------------- |
+| LSP               | Subclassing | Broken polymorphism                | "Don’t override what you can’t support" |
+| ISP               | Interfaces  | Bloated abstractions               | "Don’t depend on what you don’t use"    |
+| **Common Ground** | Contracts   | Tight coupling & runtime surprises | **"Keep contracts focused and honest"** |
+
+4. Compositions vs inheritance
+Composition -> Has A relationship
+Inheritance -> Is A relationship
+
+Inheritance is all about letting the derived classes use members of base class so It lets a class inherit behavior and properties from another class
+
+Composition is all about building something complex in a way that those are not tightly coupled, so buiid something complex with smaller objects/components.
+You build complex behaviors by composing objects from simpler ones.
+
+5. Dependency Injection and Dependency Inversion
+Dependency Inversion is a principle/technique in SOLID principles whereas Dependency Injection is an implementation by which Dependency Inversion can be achieved
