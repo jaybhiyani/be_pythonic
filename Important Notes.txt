@@ -1,5 +1,5 @@
 https://arjan.codes/diagnosis
-
+https://github.com/dmpatelce/python_interview_cookbook
 
 1.  How python handles multiple inheritance
 Python handles multiple inheritance through a mechanism called the Method Resolution Order (MRO). When a class inherits from multiple parent classes, the MRO defines the order in which methods and attributes are searched for in the class hierarchy. Python uses the C3 linearization algorithm to determine the MRO, ensuring a consistent and predictable search order.
