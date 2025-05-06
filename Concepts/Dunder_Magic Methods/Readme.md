@@ -149,6 +149,19 @@ def __getitem__(self, index):
 
 ### `__call__(self, [...])`
 Makes an instance callable.
+intercepts the initialization process of the class
+When we write
+```
+obj = MyClass()
+```
+python internally does
+```
+obj = type.__call__(MyClass, *args, **kwargs)
+```
+which then calls
+MyClass.__new__() — allocates memory.
+
+MyClass.__init__() — initializes the instance.
 
 ```python
 def __call__(self, *args, **kwargs):
@@ -207,6 +220,14 @@ output
 Calling say_hello with ('Alice',), {}
 Hello, Alice!
 ```
+
+| Method     | Defined In              | Purpose                                | Can Return Object?  | Level of Control        |
+| ---------- | ----------------------- | -------------------------------------- | ------------------- | ----------------------- |
+| `__call__` | Metaclass (e.g. `type`) | Controls instantiation logic (`cls()`) | ✅ (indirectly)      | Very High (entry point) |
+| `__new__`  | Class                   | Allocates and **returns** new object   | ✅ Yes               | Medium (creation)       |
+| `__init__` | Class                   | Initializes existing object            | ❌ No (returns None) | Low (setup)             |
+
+
 
 ## 🧼 Context Management
 
