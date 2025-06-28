@@ -292,3 +292,76 @@ if __name__ == "__main__":
 
     # perform the exporting job
     main(factory)
+
+
+    ##############################################################################################################################################################
+
+from abc import ABC, abstractmethod
+
+class Notification(ABC):
+    @abstractmethod
+    def send(self, to: str, message: str):
+        pass
+
+class EmailNotification(Notification):
+    def send(self, to: str, message: str):
+        print(f"Email sent to {to}: {message}")
+
+class SmsNotification(Notification):
+    def send(self, to: str, message: str):
+        print(f"SMS sent to {to}: {message}")
+
+class PushNotification(Notification):
+    def send(self, to: str, message: str):
+        print(f"Push notification sent to {to}: {message}")
+
+class NotificationFactory:
+
+    factory_mapper = {
+        "email": EmailNotification,
+        "sms": SmsNotification,
+        "push": PushNotification
+    }
+
+    @staticmethod
+    def get_notification(channel: str) -> Notification:
+        channel = channel.lower()
+        try:
+            return NotificationFactory.factory_mapper[channel]()
+        except KeyError:
+            raise ValueError(f"Invalid notification channel: {channel}")
+
+if __name__ == "__main__":
+    channel = input("Enter notification type (email/sms/push): ")
+    notification = NotificationFactory.get_notification(channel)
+    notification.send("john@example.com", "Hello from the factory pattern!")
+
+
+############################################################################################################################################
+
+# Build the actual transport classes responsible for delivering the package
+class Transport(ABC):
+    @abstractmethod
+    def deliver(self, package):
+        pass
+
+class RoadWays(Transport):
+    def deliver(self, package):
+        print(f"delivering {package} by roadways")
+
+class SeaWays(Transport):
+    def deliver(self, package):
+        print(f"delivering {package} by seaways")
+
+# Build the transport factory classes responsible for creating the transport objects
+class TransportFactory(ABC):
+    transport_mapper = {
+        "road": RoadWays,
+        "sea": SeaWays
+    }
+    def create_transport(self, transport_method) -> Transport:
+        return self.transport_mapper[transport_method]()
+    
+def main():
+    transport_method = input("Enter the transport method (road/sea): ").lower()
+    TransportFactory().create_transport(transport_method).deliver("package")

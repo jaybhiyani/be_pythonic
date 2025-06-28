@@ -42,7 +42,11 @@ class File:
 ## 🔤 String Representations
 
 ### `__str__(self)`
-Returns a readable string (`str(obj)`, `print(obj)`).
+Returns a readable string of current class object (`str(obj)`, `print(obj)`).
+You can use this to tell str or print function that how you want to see the object printed
+'< some class details >' or readable format
+
+Readable Output: When print(dog1) is called, Python automatically uses the __str__ method to get a string representation of the object. Without __str__, calling print(dog1) would produce something like <__main__.Dog object at 0x00000123>.
 
 ```python
 def __str__(self):
@@ -201,25 +205,35 @@ print(counter())  # 2
 ```python
 class Logger:
     def __init__(self, func):
+        print(f"[Logger.__init__] Decorating function: {func.__name__}")
         self.func = func
 
     def __call__(self, *args, **kwargs):
-        print(f"Calling {self.func.__name__} with {args}, {kwargs}")
+        print(f"[Logger.__call__] Calling {self.func.__name__} with args: {args}, kwargs: {kwargs}")
         return self.func(*args, **kwargs)
 
 @Logger
 def say_hello(name):
     print(f"Hello, {name}!")
 
+print("---- About to call say_hello ----")
 say_hello("Alice")
+
 ```
 
 ```
 output
 
-Calling say_hello with ('Alice',), {}
+[Logger.__init__] Decorating function: say_hello
+---- About to call say_hello ----
+[Logger.__call__] Calling say_hello with args: ('Alice',), kwargs: {}
 Hello, Alice!
+
+
 ```
+✅ Logger.__init__ is called once at decoration time, when the function is first defined and wrapped.
+
+✅ Logger.__call__ is called each time the decorated function is invoked, using the saved self.func.
 
 | Method     | Defined In              | Purpose                                | Can Return Object?  | Level of Control        |
 | ---------- | ----------------------- | -------------------------------------- | ------------------- | ----------------------- |
